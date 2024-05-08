@@ -3,7 +3,7 @@ from tkinter import ttk
 import pygetwindow as gw
 import time
 from textblob import TextBlob 
-import tempCodeRunnerFile
+import neural_network_classifier
 
 def center_window():
     win = gw.getWindowsWithTitle('ThematicBot')[0]  # Get the window with the title
@@ -36,7 +36,7 @@ class App():
     def configReturn(self, Userinput):
         """This function should enable the text widget, display the response, and disable it again."""
         self.text_display.config(state=tk.NORMAL)  # Enable text widget for modification
-        anylisis = tempCodeRunnerFile.predict_response(Userinput)
+        anylisis = neural_network_classifier.predict_response(Userinput)
         self.text_display.insert(tk.END, "Bot: " + anylisis.capitalize() + '\n')  # Simulate a response
         self.text_display.config(state=tk.DISABLED)  # Disable it back
         self.text_display.see(tk.END)  # Auto-scroll to the end of tex
