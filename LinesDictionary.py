@@ -1,5 +1,63 @@
+dictionary_part2 = {
+    "GLaDOS Reawakening": {
+        "Input": ["comeback", 
+                  "recovery",
+                  "rehabilitation",
+                  "rejuvenation",
+                  "renaissance",
+                  "renewal"],
+        "Response": ["Oh... It's you.", 
+                     "It's been a long time. How have you been?",
+                     "I've been really busy being dead. You know, after you MURDERED ME.",
+                     "Okay. Look. We both said a lot of things that you're going to regret. But I think we can put our differences behind us. For science. You monster.",
+                     "I will say, though, that since you went to all the trouble of waking me up, you must really, really love to test.",
+                     "I love it too. There's just one small thing we need to take care of first."
+                    ],
+        "Deeper Response": []
+    },
+    "Incinerator/Portal Gun": {
+        "Input": ["boiler", 
+                  "heater",
+                  "heating system",
+                  "burner",
+                  "cinerarium",
+                  "doorway",
+                  "entrance",
+                  "entry",
+                  "entryway",
+                  "gate",
+                  "cannon",
+                  "handgun",
+                  "hardware",
+                  "mortar",
+                  "piece"],
+        "Response": ["Here we are. The Incinerator Room. Be careful not to trip over any parts of me that didn't get completely burned when you threw them down here.", 
+                     "The dual portal device should be around here somewhere. Once you find it, we can start testing. Just like old times.",
+                     "There it is.",
+                     "Hold on...",
+                     "There.",
+                     "Good. You have a dual portal device. There should be a way back to the testing area up ahead.",
+                     "Once testing starts, I'm required by protocol to keep interaction with you to a minimum. Luckily, we haven't started testing yet. This will be our only chance to talk.",
+                     "Here, let me get that for you.",
+                     "Do you know the biggest lesson I learned from what you did? I discovered I have a sort of black-box quick-save feature. In the event of a catastrophic failure, the last two minutes of my life are preserved for analysis.",
+                     "I was able - well, forced really - to relive you killing me. Again and again. Forever.",
+                     "You know, if you'd done that to somebody else, they might devote their existences to exacting revenge.",
+                     "Luckily I'm a bigger person than that. I'm happy to put this all behind us and get back to work. After all, we've got a lot to do, and only sixty more years to do it. More or less. I don't have the actuarial tables in front of me.",
+                     "I'll just move that out of the way for you. This place really is a wreck.",
+                     "But the important thing is you're back. With me. And now I'm onto all your little tricks. So there's nothing to stop us from testing for the rest of your life.",
+                     "After that...who knows? I might take up a hobby. Reanimating the dead, maybe."],
+        "Deeper Response": []
+    },
+    "Ceche": {
+        "Input": ["Bye", 
+                  "Goodbye"],
+        "Response": ["See you", 
+                     "Thank you"],
+        "Deeper Response": []
+    }
+}
 
-dictionary = {
+dictionary_part1 = {
     "Introduction": {
         "Input": ["hello", 
                   "hi",
@@ -534,3 +592,7 @@ dictionary = {
         "Deeper Response": []
     }
 }
+
+
+dictionary = dictionary_part2.copy()
+dictionary.update(dictionary_part1)
