@@ -1,86 +1,39 @@
-import re
-import collections
-import nltk
-import string
-import random
-from nltk.corpus import wordnet
-nltk.download('wordnet')
-from fuzzywuzzy import fuzz
+"""
+1) change the dictionary keys
+2) change Input list words to make better words to fit the Response or Deeper Responses
+3) Then Make one mkore skript that would make a new responce the fits the users input perfectly.
+4) Maybe add the reult from number 3, to the chehe
+"""
 
-dictionary = {
-    "Introduction": {
-        "Input": ["Hello", "Hi"],
-        "Response": ["Welcome","Hey"]
-    },
-    "Ceche": {
-        "Input": ["bye","Goodbye"],
-        "Response": ["see you","Thankyou"]
-    }
-}
+import spacy
+import numpy as np
+from sklearn.cluster import KMeans
+import neural_network_classifier, LinesDictionary
+nlp = spacy.load('en_core_web_md')
 
-""" part 2 passive way to detect the users emotions """
+dictionary = LinesDictionary.dictionary
 
-
-
-""" part 1 need to add new theme """
-
-# make a theme name
-# Preload words from WordNet by part of speech
-word_lists_by_pos = {
-    pos: list(set(lemma.name() for synset in wordnet.all_synsets(pos) for lemma in synset.lemmas()))
-    for pos in ['n', 'v', 'a']  # Nouns, verbs, adjectives
-}
-
-def get_words_by_pos(pos):
-    """ Fetch preloaded words from WordNet by part of speech (pos) """
-    return word_lists_by_pos[pos]
-
-def create_new_word(pos='n'):
-    """ Create a new word by blending parts of existing words """
-    words = get_words_by_pos(pos)
-    return random.choice(words)
-
-def analyze_themes(dictionary):
-    attempts = 0
-    while True:
-        ThemeName = create_new_word(pos=random.choice(['n', 'v', 'a']))
-        for existing_theme_name in dictionary:
-            ratio = fuzz.ratio(existing_theme_name, ThemeName)
-            if ratio >= 70 and existing_theme_name != ThemeName:
-                return ThemeName
-
-# transfer ceche
-def transfer_ceche(dictionary):
-    if "Ceche" in dictionary and dictionary["Ceche"]["Input"]:
-        # Suggest new theme name based on Ceche pattern
-        new_theme_name = analyze_themes(dictionary)
-        if new_theme_name:
-            # Create new theme using Ceche's input and response
-            new_inputs = dictionary["Ceche"]["Input"]
-            new_responses = dictionary["Ceche"]["Response"]
-            add_theme(new_theme_name, new_inputs, new_responses)
-            # Clear Ceche's entries after transferring
-            dictionary["Ceche"]["Input"] = []
-            dictionary["Ceche"]["Response"] = []
-            return f"New theme '{new_theme_name}' added successfully."
-        else:
-            return "Failed to generate a unique new theme name."
-    return "No patterns available in 'Ceche' to transfer."
-
-# make a new theme
-def add_theme(theme_name, input_list, response_list):
-    """Add a new theme to the dictionary if it does not already exist."""
-    if theme_name and theme_name not in dictionary:
-        dictionary[theme_name] = {
-            "Input": input_list,
-            "Response": response_list
-        }
-        print(f"Theme '{theme_name}' added successfully.")
+# Function to average word vectors
+def get_average_vector(texts):
+    vectors = [nlp(text).vector for text in texts if nlp(text).vector_norm > 0]
+    if vectors:
+        return np.mean(vectors, axis=0)
     else:
-        print(f"Theme '{theme_name}' already exists or was not provided.")
+        return np.zeros((nlp.vocab.vectors_length,))
 
-# Example use of the functions
-print("Current dictionary:", dictionary)
-result = transfer_ceche(dictionary)
-print(result)
-print("Updated dictionary:", dictionary)
+# Aggregate texts and compute their average vectors
+text_vectors = {}
+for key, values in dictionary.items():
+    aggregated_texts = values['Input'] + values['Response'] + values['Deeper Response']
+    text_vectors[key] = get_average_vector(aggregated_texts)
+
+# Print new keys
+def change_keys():
+    keys = list(text_vectors.keys())
+    vectors = np.array(list(text_vectors.values()))
+    kmeans = KMeans(n_clusters=2, random_state=42).fit(vectors)
+    new_keys = ["Category_" + str(label) for label in kmeans.labels_]
+    # --
+    for key, new_key in zip(keys, new_keys):
+        dictionary[new_key] = dictionary[key]
+        del dictionary[key]
