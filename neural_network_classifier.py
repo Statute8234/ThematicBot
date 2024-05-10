@@ -49,7 +49,7 @@ model = Sequential([
 model.compile(optimizer=Adam(), loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
 # Train the model
-model.fit(X_train, y_train, epochs=20, validation_data=(X_test, y_test))
+model.fit(X_train, y_train, epochs=100, validation_data=(X_test, y_test))
 
 # Function to predict and return response
 def predict_response(text, deep=False):
