@@ -1,11 +1,14 @@
 # ThematicBot
-
-[![Static Badge](https://img.shields.io/badge/tkinter-brown)](https://docs.python.org/3/library/tkinter.html)
-[![Static Badge](https://img.shields.io/badge/pygetwindow-silver)](https://pypi.org/project/PyGetWindow/)
-[![Static Badge](https://img.shields.io/badge/times-black)](https://pypi.org/project/times/)
-[![Static Badge](https://img.shields.io/badge/textblob-white)](https://pypi.org/project/textblob/)
-
 Rating (7.5/10): ThematicBot is an AI-based chatbot developed using TensorFlow, spaCy, and KMeans clustering. It uses tokenization and embedding to process text input, predicting responses. The interface is managed using the Tkinter library, enhancing user experience by dynamically improving relevance and depth of responses based on user input.
+
+[![Static Badge](https://img.shields.io/badge/tkinter-silver)](https://pypi.org/project/tkinter/)
+[![Static Badge](https://img.shields.io/badge/pygetwindow-pink)](https://pypi.org/project/pygetwindow/)
+[![Static Badge](https://img.shields.io/badge/time-purple)](https://pypi.org/project/time/)
+[![Static Badge](https://img.shields.io/badge/textblob-gray)](https://pypi.org/project/textblob/)
+[![Static Badge](https://img.shields.io/badge/spacy-purple)](https://pypi.org/project/spacy/)
+[![Static Badge](https://img.shields.io/badge/numpy-purple)](https://pypi.org/project/numpy/)
+[![Static Badge](https://img.shields.io/badge/sklearn-black)](https://pypi.org/project/sklearn/)
+[![Static Badge](https://img.shields.io/badge/tensorflow-magenta)](https://pypi.org/project/tensorflow/)
 
 # Table of Contents
 
